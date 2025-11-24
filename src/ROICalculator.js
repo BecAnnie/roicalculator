@@ -96,7 +96,7 @@ const ROICalculator = () => {
             };
             setAssumptions(updatedAssumptions);
         }
-    }, [numMenopauseTransition, avgSalary, avgSickLeave]);
+    }, [numMenopauseTransition, avgSalary, avgSickLeave, allInputsFilled]);
 
     // Calculate the cost for sick days due to untreated menopause symptoms
     useEffect(() => {
@@ -109,7 +109,7 @@ const ROICalculator = () => {
         } else {
             setCostSickDays('');
         }
-    }, [assumptions, numMenopauseTransition]);
+    }, [assumptions, numMenopauseTransition, allInputsFilled]);
 
     // Calculate the yearly replacement cost for part time/early retirement/job change
     useEffect(() => {
@@ -141,7 +141,7 @@ const ROICalculator = () => {
         } else {
             setYearlyReplacementCost('');
         }
-    }, [assumptions, numMenopauseTransition, avgSalary]);
+    }, [assumptions, numMenopauseTransition, avgSalary, allInputsFilled]);
 
     // Calculate the total yearly cost due to untreated menopause symptoms
     useEffect(() => {
@@ -151,7 +151,7 @@ const ROICalculator = () => {
         } else {
             setTotalYearlyCost('');
         }
-    }, [costSickDays, yearlyReplacementCost]);
+    }, [costSickDays, yearlyReplacementCost, allInputsFilled]);
 
     // Calculate the yearly Evela program cost
     useEffect(() => {
@@ -161,7 +161,7 @@ const ROICalculator = () => {
         } else {
             setEvelaCost('');
         }
-    }, [assumptions.evelaMonthlySubscription, numMenopauseTransition]);
+    }, [assumptions.evelaMonthlySubscription, numMenopauseTransition, allInputsFilled]);
 
     // Calculate the ROI
     useEffect(() => {
@@ -171,7 +171,7 @@ const ROICalculator = () => {
         } else {
             setROI(''); // Set ROI as an empty string if any input is missing
         }
-    }, [totalYearlyCost, evelaCost]);
+    }, [totalYearlyCost, evelaCost, allInputsFilled]);
 
     return (
         <div className="roi-calculator" style={{ padding: '10px' }}>
