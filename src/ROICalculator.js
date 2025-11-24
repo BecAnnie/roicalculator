@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect, useCallback } from 'react'; 
 import './ROICalculator.css';
 
 const ROICalculator = () => {
@@ -42,7 +42,7 @@ const ROICalculator = () => {
     const formatNumber = (number) => number.toLocaleString();
 
     // Helper function to check if all inputs are filled
-    const allInputsFilled = () => {
+    const allInputsFilled = useCallback(() => {
         return (
             numEmployees !== '' &&
             percentFemale !== '' &&
@@ -50,7 +50,7 @@ const ROICalculator = () => {
             avgSalary !== '' &&
             avgSickLeave !== ''
         );
-    };
+    }, [numEmployees, percentFemale, percentFemaleOver40, avgSalary, avgSickLeave]);
 
     // Handle arrow key navigation between inputs
     const handleKeyDown = (e, currentIndex) => {
@@ -82,7 +82,7 @@ const ROICalculator = () => {
             setEvelaCost('');
             setROI('');
         }
-    }, [numEmployees, percentFemale, percentFemaleOver40, avgSalary, avgSickLeave]);
+    }, [numEmployees, percentFemale, percentFemaleOver40, avgSalary, avgSickLeave, allInputsFilled]);
 
     // Update assumptions based on calculated values
     useEffect(() => {
@@ -96,7 +96,7 @@ const ROICalculator = () => {
             };
             setAssumptions(updatedAssumptions);
         }
-    }, [numMenopauseTransition, avgSalary, avgSickLeave, allInputsFilled]);
+    }, [numMenopauseTransition, avgSalary, avgSickLeave, allInputsFilled, assumptions]);
 
     // Calculate the cost for sick days due to untreated menopause symptoms
     useEffect(() => {
